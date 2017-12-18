@@ -40,8 +40,9 @@ const _LOGO = "http://img03.miyabaobei.com/d1/p5/2017/08/18/41/ff/41ff9ac22688a1
 
 func main() {
 	type Images struct {
-		Index     int    `xml:"index,attr"`
-		InnerText string `xml:",innerxml"`
+		//内部属性都要大写字母开头，属性节点的名称变量名固定为XMLName，内部的文本统一叫innerxml
+		Index     int    `xml:"index,attr"` //表示属性
+		InnerText string `xml:",innerxml"`  //表示文本
 	}
 	type Mimages struct {
 		XMLName xml.Name `xml:"moreImages"`
