@@ -11,6 +11,8 @@ import (
 	"time"
 )
 
+const _NUM_PER_XML = "3000"
+
 const _URL_PREFIX = "http://download.miyabaobei.com/xml/360_feed/"
 
 const _IMG_HOST = "https://img07.miyabaobei.com/"
@@ -103,13 +105,12 @@ func main() {
 		fmt.Println("db ok")
 	}
 	//初始化sql数据
-	pageSize := "300"
 	maxId := "0"
 	//初始化sitemapindex数据
 	var sitemapindex Sitemapindex
 	var sitemap []Sitemap
 	for {
-		sql := "select a.id as outerID,a.name,a.sale_price as price, a.category_id,a.market_price as value,b.name as brand from item as a left join item_brand as b on a.brand_id = b.id where a.status = 1 and a.id >" + maxId + " order by a.id asc limit 0," + pageSize
+		sql := "select a.id as outerID,a.name,a.sale_price as price, a.category_id,a.market_price as value,b.name as brand from item as a left join item_brand as b on a.brand_id = b.id where a.status = 1 and a.id >" + maxId + " order by a.id asc limit 0," + _NUM_PER_XML
 		sql2 := "select count(*) as total from item as a left join item_brand as b on a.brand_id = b.id where a.status = 1 and a.id >" + maxId
 		var total int
 		if rowCountErr := db.QueryRow(sql2).Scan(&total); rowCountErr != nil {
