@@ -1,0 +1,81 @@
+1. 类型转换
+   int64转10进制字符串
+    strconv.FormatInt(int64String, 10)
+   字符串转byte
+   []byte(string)
+   byte转十六进制字符串
+   fmt.Sprintf("%x",byte)
+   string转int
+   strconv.Atoi(string)
+   int转string
+   strconv.Itoa(int)或者strconv.FormatInt(int,base) 其中base指的进制2到36之间
+   
+2. http post请求(详见requestTT.go)
+   body数据可以先以json的形式组装，然后json包解析，解析后再转化为[]byte类型，然后利用http包发送post，例如下面的demo:
+   func request(url string, data interface{}) string {
+      //解析json数据
+      if _body, err := json.Marshal(data); err != nil {
+         panic(err)
+      } else {
+         //将json转换为这种类型
+         body := bytes.NewBuffer([]byte(_body))
+         fmt.Println(body)
+         //发送请求
+         res, err2 := http.Post(url, "application/json;charset=utf-8", body)
+         if err2 != nil {
+            fmt.Println(err2)
+            os.Exit(1)
+         }
+         //读取响应
+         result, err3 := ioutil.ReadAll(res.Body)
+         res.Body.Close()
+         if err3 != nil {
+            fmt.Println(err3)
+            os.Exit(1)
+         }
+         // fmt.Printf("%s", result)
+         return string(result)
+      }
+   }
+3 函数可变参数问题
+   func a(args ...interface{}){
+      fmt.Println(args)
+   }
+   上面的函数args如果有值，那args的类型是一个slice。。。
+   填坑demo:
+   //返回提示信息
+   func GetMsg(codeNum int, msg string, data ...interface{}) map[string]interface{} {
+      if data == nil {
+         return map[string]interface{}{"code": codeNum, "message": msg}
+      } else {
+         return map[string]interface{}{"code": codeNum, "message": msg, "data": data[0]}
+      }
+   }
+   如果传了一个data,而返回值写data:data，那么就会导致多一层[],因为data是一个slice
+   
+4 slice底层深入理解
+   例如：
+      s1 := []int{1, 2, 3, 4}
+      s2 := []int{-1, -2, -3}
+
+      fmt.Println(append(s1[:1], s2...))
+
+      fmt.Println(s1)
+      打印的结果：
+
+      [1 -1 -2 -3]
+      [1 -1 -2 -3]
+      弄不明白的是：为什么s1的值也变了？
+   解释：
+      因为append函数并不保障slice是否被修改，也就是说append可能会修改slice，也可能不修改，所以使用append有两个原则：
+         1.append函数调用后，应该使用返回值作为结果。
+         2.append函数调用后，不应该再使用实参传入的slice。
+      所以使用append函数一般都是s = append(s,elem1)这种用法，也就是把结果重新赋值给原来的slice。
+      append函数之所以有这个表现，是因为slice的底层存储依赖于底层数组（underlying array），用你的例子来给你说明一下：
+      你的s1初始化的值是[]int{1, 2, 3, 4}，它的len和cap都是4，所以它的底层数组是一个长度为4的数组[4]int{1,2,3,4}。
+      基于slice的特点，s1[:1]和s1是共享底层数组的，所以s1[:1]这个slice的改变是会影响到underlying array的。
+
+      append函数在填充elem1,elem2的时候会先判断slice的cap是否能容纳所有追加的值，这个计算方式是从slice的尾部计算的，在你的例子里，slice的尾部是第一个元素，后面的容量恰好可以满足3个元素，所以它不会申请新的底层数组，而会直接使用原有的底层数组作为存储，这也就把原本的底层数组改成了[1 -1 -2 -3],由于s1的存储依赖于这个底层数组，自然也就变成了[1 -1 -2 -3]。
+
+      如果把你的例子改成append(s1[:1],1, s2...)，或者改成append(s1[1:2], s2...),你就会发现s1没有被改变，这是因为容量不能容纳所有追加元素，append会申请一个新的底层数组用来存储，也会返回一个新的slice，这不会影响到原本的底层数组，也就不会影响到原本的slice。
+      所以使用s = append(s,elem1)是一个好习惯，尽量使用这个用法

@@ -1,0 +1,69 @@
+golang笔记：
+1.golang import机制介绍：
+    复杂系统会有各种包依赖引入，golang里面import大概流程是这样的：main主函数对包依赖进行分析，依次加载需要的包(只会加载一次),加载后，main在初始化全局变量，
+ 然后在执行初始化函数，最后在执行main函数。其他包也是这样的：先加载包依赖，然后初始化包内的全局变量，然后执行初始化函数，最后加载其他内容...
+2.golang import用法：
+    2.1多个包引入，需要加括号，例如：
+        import (
+            "fmt",
+            "time"
+        )
+    2.2 别名引入,如何两个包引入后，最后一个包名称一致，就会引起冲突，所以可以使用别名加以区分。
+        import(
+            "a/logging"
+            "b/logging"
+        )
+        如上就就会导致冲突，所以需要这样：
+        import (
+            la "a/logging"
+            lb "b/logging"
+        )
+        在调用的时候la.logging就表示a/logging,lb.logging就代表b/logging
+     2.3 .引入
+        import(
+            . "fmt"
+        )
+        像上面用.引入后，我们在使用fmt包里面导出的变量或者函数时，可以直接使用，例如：Println("aa"),而不再需要像这样fmt.Println("a"),在函数前加入包名了，
+     相当于省略了包名,一般不建议使用这种方式
+     2.4 _引入
+        import(
+            _ "a/logging"
+        )
+        _在golang里面表示空操作符，这里这样引入后，程序只是执行了a/logging里面的初始化函数，而实际并不使用a/logging里面的任何导出函数或者变量，所有，如果
+        需要引入一个包，但是又不需要使用这个包里面的任何程序，就可以这样引入，从而golang在编译的时候就不报错
+  3.golang中的关键字
+    程序申明：import package
+    程序实体申明和定义：const,chan,func,interface,map,struct,type,var
+    程序流程控制：go,select,break,case,continue,default,defer,else,fallthrough,for,if,goto,range,return,switch
+    25个。。
+  4.基本数据类型：
+        bool,string,byte,rune,int/uint,int8/uint8,int16/uint16,int32/uint32,int64/uint64,float32,float64,complex64,complex128
+  5.复合数据类型：
+        array,slice,map,struct,interface,function,channel,pointer
+6.切片
+    6.1声明
+        a := []int{1,2,3}
+        a2 := make([]int, 4, 8)//声明长度为4，容量为8的切片a2
+    6.2修改
+        a[1] = 3
+    6.3追加
+        a = append(a, 4)//把4追加到a里面
+        b := []int{5,6}
+        a = append(a, b...)//把切片b中的元素追加到a里面
+        //b[2] = 7//这样操作会报错，因为b的长度是2，不能超出范围赋值第三个元素，只能通过append来追加元素，生成一个新的切片
+    6.4删除
+        a = a[:3] //只取a中前三个元素，其他删除
+    6.5长度和容量    
+        len(a)//a的长度
+        cap(a)//a的容量
+    6.6遍历    
+        for _,v := range a{
+            fmt.Println(v)
+        }
+    6.7值类型
+        切片是地址传递
+        s1 := []int{1,2,3,4,5}
+        s2 := s1[:2]
+        fmt.Println(s2)
+        s1[1] = 4//修改s1的值
+        fmt.Println(s2)//s2变化
