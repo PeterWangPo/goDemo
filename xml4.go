@@ -15,10 +15,6 @@ const _URL_PREFIX = "http://download.miyabaobei.com/xml/360_feed/"
 
 const _IMG_HOST = "https://img07.miyabaobei.com/"
 
-//db 配置
-//for pro env
-// const _DB = "api_read:api_read@tcp(10.1.3.203:3306)/mia?charset=utf8"
-
 //for test env
 const _DB = "write_user:write_pwd@tcp(172.16.104.207:3307)/mia_test2?charset=utf8"
 
@@ -46,7 +42,7 @@ func main() {
 	}
 	type Mimages struct {
 		XMLName xml.Name `xml:"moreImages"`
-		Img     []Images `xml:"Img"`
+		Img     []Images `xml:"img"`
 	}
 	type SubAttribute struct {
 		Key   string `xml:"key"`
