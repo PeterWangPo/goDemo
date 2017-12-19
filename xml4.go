@@ -179,10 +179,10 @@ func main() {
 							SellerSiteUrl:    _SELLER_SITE_URL,
 							ShopName:         _SHOP_NAME,
 							SearchWiseUrl:    getSearchWiseUrl(outerID),
-							Category:         category_id,
+							Category:         _categoryInfo["categoryName"],
 							CategoryUrl:      getCategoryUrl(category_id),
 							CategoryPcUrl:    getCategoryPcUrl(category_id),
-							SubCategory:      _categoryInfo["subCategoryId"],
+							SubCategory:      _categoryInfo["subCategoryName"],
 							SubCategoryUrl:   getCategoryUrl(_categoryInfo["subCategoryId"]),
 							SubcategoryPcUrl: getCategoryPcUrl(_categoryInfo["subCategoryId"]),
 							Choice:           _choice,
@@ -229,10 +229,6 @@ here:
 		})
 	}
 	fmt.Println("all done...")
-}
-
-func getChoices() {
-
 }
 
 func getImages(itemId string, db *sql.DB) []string {
