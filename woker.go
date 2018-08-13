@@ -15,7 +15,7 @@ func main()  {
 	<- done
 	fmt.Println("all done")
 }
-func handleResult(done chan bool, result chan int)  {
+func handleResult(done chan <- bool, result <- chan int)  {
 	for r := range result {
 		fmt.Println("handle result:",r)
 	}
@@ -27,7 +27,7 @@ func createJobs(jobNum int, jobs chan <- int)  {
 	}
 	close(jobs)
 }
-func createWorker(workerNum int, jobs chan int, result chan  <- int)  {
+func createWorker(workerNum int, jobs <- chan int, result chan  <- int)  {
 	var wg sync.WaitGroup
 	for i := 0; i< workerNum; i++ {
 		wg.Add(1)
@@ -37,7 +37,7 @@ func createWorker(workerNum int, jobs chan int, result chan  <- int)  {
 	close(result)
 }
 
-func doWorker(wg *sync.WaitGroup, jobs chan int, result chan <- int)  {
+func doWorker(wg *sync.WaitGroup, jobs <- chan int, result chan <- int)  {
 	for job := range jobs {
 		goWork(job,result)
 	}
