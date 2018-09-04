@@ -8,9 +8,9 @@ import (
 )
 
 type urlset struct {
-	Urlset url `json:"urlset"`
+	Urlset urls `json:"urlset"`
 }
-type url struct {
+type urls struct {
 	Url []urlType `json:"url"`
 }
 
@@ -25,7 +25,7 @@ type dataType struct {
 
 func main() {
 	// var urlsetdata urlset
-	jsonstr := `{"urlset":{"url":[{"loc":"1","data":{"id":1,"name":"1"}},{"loc":"2","data":{"id":2,"name":"2"}}]}}`
+	jsonstr := `{"urlset":{"urls":[{"loc":"1","data":{"id":1,"name":"1"}},{"loc":"2","data":{"id":2,"name":"2"}}]}}`
 	// detail = append(detail, urls)
 	// urlsetdata.Urlset = urlDatas
 	// var box map[string]urlset

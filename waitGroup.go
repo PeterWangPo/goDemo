@@ -5,7 +5,7 @@ import (
 	"fmt"
 )
 
-var x = 0
+var xx = 0
 func main()  {
 	var wg sync.WaitGroup
 	for i := 0; i < 1000; i++ {
@@ -13,10 +13,10 @@ func main()  {
 		go incre(&wg)
 	}
 	wg.Wait()
-	fmt.Println("x val:",x)
+	fmt.Println("x val:",xx)
 }
 
 func incre(wg *sync.WaitGroup)  {
-	x = x+1
+	xx = xx+1
 	wg.Done()
 }

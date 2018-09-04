@@ -13,7 +13,7 @@ func main(){
 	fmt.Println("================")
 	e := [...]int{2:1, 4:2, 8:1} //...表示数组长度不确定，根据赋值自动判断
 	fmt.Println(e)
-	m := 1;
+	m := 1
 	var p *int = &m //指针
 	fmt.Println(p)
 	fmt.Println(*p)
