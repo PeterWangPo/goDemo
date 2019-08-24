@@ -1,15 +1,21 @@
 package main
-import(
+
+import (
 	"fmt"
 	"os"
 )
-func main(){
+
+func main() {
 	args := os.Args
 	fmt.Println(args)
-	for k,v := range args{
-		if k == 0{
+	for k, v := range args {
+		if k == 0 {
 			continue
 		}
 		fmt.Println(v)
+	}
+	var num [5][0]int
+	for range num {
+		fmt.Println("hello world")
 	}
 }

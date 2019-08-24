@@ -8,18 +8,22 @@ import (
 func main() {
 	jobs := make(chan int, 100)
 	result := make(chan int, 100)
-	done := make(chan bool, 1)
+	//done := make(chan bool)
+	done := make(chan struct{})
 	go createJobs(100, jobs)
 	go createWorker(10, jobs, result)
 	go handleResult(done, result)
 	<-done
 	fmt.Println("all done")
 }
-func handleResult(done chan<- bool, result <-chan int) {
+
+//func handleResult(done chan<- bool, result <-chan int) {
+func handleResult(done chan<- struct{}, result <-chan int) {
 	for r := range result {
 		fmt.Println("handle result:", r)
 	}
-	done <- true
+	//done <- true
+	done <- struct{}{}
 }
 func createJobs(jobNum int, jobs chan<- int) {
 	for i := 0; i < jobNum; i++ {
