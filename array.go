@@ -1,6 +1,13 @@
 package main 
+
 import "fmt"
+
 func main(){
+    var nums [5][0]int
+    fmt.Println(nums)
+    for range nums {
+        fmt.Println("hell0")
+    }
 	var a [2]int
 	var b [2]int
 	fmt.Println(a)

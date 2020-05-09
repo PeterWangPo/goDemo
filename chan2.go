@@ -13,6 +13,7 @@ func sum(values []int, c chan int) {
 	}
 	c <- sum
 }
+
 func main() {
 	randNum := generateRandomNumber(1, 15, 10)
 	c := make(chan int, 10)
