@@ -7,6 +7,7 @@ import (
     "os"
     //"io"
     "bufio"
+    //"strconv"
     //"path/filepath"
 )
 
@@ -23,6 +24,7 @@ func main() {
     read()
     write()
     write2()
+    write3()
 }
 
 //流式解码
@@ -73,4 +75,18 @@ func write2() {
     }
     writer.Close()
     fmt.Println()
+}
+
+func write3() {
+    fmt.Println("||||||||||||||||||||||||||")
+    fmt.Println(base64.StdEncoding.EncodeToString([]byte("this is hhh! a.?!-- test 123")))
+    encode := base64.NewEncoding(strings.Repeat("-", 64))
+    dst := encode.EncodeToString([]byte("this is hhh! a.?!-- test 123"))
+    fmt.Println(dst)
+    fmt.Println(len(dst) % 4 == 0)
+    /*
+    var dst []byte
+    encode.Encode(dst, []byte("this is hhh! a.?!-- test 123"))
+    fmt.Println(string(dst))
+    */
 }
