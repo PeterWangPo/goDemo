@@ -1,6 +1,8 @@
 package main
+
 import "fmt"
-func main(){
+
+func main() {
 	a := 1
 	for { //没有任何条件的for
 		a++

@@ -6,15 +6,15 @@ import (
 )
 
 func main() {
-    //两个任务异步执行，谁先返回用谁
-    select {
-    case str1 := <-AsyncService(serviceTask):
-	    fmt.Println(str1)
-    case str := <-AsyncService(otherTask):
-	    fmt.Println(str)
-    case <-time.After(time.Millisecond * 10):
-        fmt.Println("time out")
-    }
+	//两个任务异步执行，谁先返回用谁
+	select {
+	case str1 := <-AsyncService(serviceTask):
+		fmt.Println(str1)
+	case str := <-AsyncService(otherTask):
+		fmt.Println(str)
+	case <-time.After(time.Millisecond * 10):
+		fmt.Println("time out")
+	}
 }
 
 func serviceTask() string {

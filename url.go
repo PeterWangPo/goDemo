@@ -1,22 +1,24 @@
-package main 
-import(
+package main
+
+import (
 	"fmt"
+	"io/ioutil"
 	"net/http"
 	"os"
-	"io/ioutil"
 )
-func main(){
-	urls :=os.Args[1:]
-	for _,url := range urls{
+
+func main() {
+	urls := os.Args[1:]
+	for _, url := range urls {
 		resp, err := http.Get(url)
-		if err !=nil{
-			fmt.Println("error %v",err)
+		if err != nil {
+			fmt.Println("error %v", err)
 		}
-		data,err1 :=ioutil.ReadAll(resp.Body)
-		if err1 != nil{
+		data, err1 := ioutil.ReadAll(resp.Body)
+		if err1 != nil {
 			fmt.Println("error %v", err1)
 		}
 		resp.Body.Close()
-		fmt.Printf("%s",data)
+		fmt.Printf("%s", data)
 	}
 }

@@ -1,14 +1,17 @@
 package main
-import(
+
+import (
 	"fmt"
 )
+
 type a interface{}
-func main(){
+
+func main() {
 	var a1 a = "1"
-	switch a1.(type){
-		case int :
-			fmt.Println("int")
-		case string:
-			fmt.Println("string")
+	switch a1.(type) {
+	case int:
+		fmt.Println("int")
+	case string:
+		fmt.Println("string")
 	}
 }

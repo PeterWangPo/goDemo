@@ -1,33 +1,33 @@
 package main
 
 import (
-	"math/rand"
-	"time"
 	"fmt"
+	"math/rand"
 	"os"
+	"time"
 )
 
-func main()  {
+func main() {
 	//fmt.Println(getRandomString(3))
 	//fmt.Println(rand.New(rand.NewSource(time.Now().UnixNano())).Intn(3))
 	//fmt.Println(t())
 	//fmt.Println(GetlastMonthLastDayUnix())
 	file, err := os.OpenFile("./b.txt", os.O_WRONLY|os.O_CREATE|os.O_APPEND, os.ModePerm)
 	if err != nil {
-		fmt.Println("os openfile err：",err)
+		fmt.Println("os openfile err：", err)
 	}
 	str := "abcdefg"
 	//byteStr := []byte(str)
 	//n, err := file.Write(byteStr)
-	n,err := file.WriteString(str)
+	n, err := file.WriteString(str)
 	if err != nil {
-		fmt.Println("write file err:",err)
+		fmt.Println("write file err:", err)
 		fmt.Println(n)
 	}
 	fmt.Println("done...")
 }
 
-func  getRandomString(l int) string {
+func getRandomString(l int) string {
 	str := "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
 	bytes := []byte(str)
 	result := []byte{}
@@ -38,11 +38,11 @@ func  getRandomString(l int) string {
 	return string(result)
 }
 
-func t() int64{
+func t() int64 {
 	year := time.Now().Year()
 	month := time.Now().Month()
-	ctime := time.Date(year, month, 01, 0,0,0,0,time.Local)
-	return ctime.AddDate(0,-1,0).Unix()
+	ctime := time.Date(year, month, 01, 0, 0, 0, 0, time.Local)
+	return ctime.AddDate(0, -1, 0).Unix()
 	//return ctime.Unix()
 }
 
@@ -50,16 +50,17 @@ func t() int64{
 func GetCurrentMonthFirstDayUnix() int64 {
 	year := time.Now().Year()
 	month := time.Now().Month()
-	return time.Date(year, month, 01, 0,0,0,0,time.Local).Unix()
+	return time.Date(year, month, 01, 0, 0, 0, 0, time.Local).Unix()
 }
+
 //获取上一个月第一天时间戳
-func GetlastMonthFirstDayUnix() int64{
+func GetlastMonthFirstDayUnix() int64 {
 	year := time.Now().Year()
 	month := time.Now().Month()
-	return time.Date(year, month, 01, 0,0,0,0,time.Local).AddDate(0, -1, 0).Unix()
+	return time.Date(year, month, 01, 0, 0, 0, 0, time.Local).AddDate(0, -1, 0).Unix()
 }
 
 //获取上一个月最后一天时间戳
-func GetlastMonthLastDayUnix() int64{
+func GetlastMonthLastDayUnix() int64 {
 	return GetCurrentMonthFirstDayUnix() - 1
 }

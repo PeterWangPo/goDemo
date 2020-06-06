@@ -21,8 +21,8 @@ func sayHello(w http.ResponseWriter, r *http.Request) {
 	// r.ParseForm()
 	// fmt.Println(r.Form)
 	// fmt.Println(w, "PATH:", r.URL.Path)
-    w.Header().Add("Content-Type","application/json")
-    w.WriteHeader(http.StatusBadGateway)
+	w.Header().Add("Content-Type", "application/json")
+	w.WriteHeader(http.StatusBadGateway)
 	fmt.Fprintf(w, "hello world")
 }
 func login(w http.ResponseWriter, r *http.Request) {

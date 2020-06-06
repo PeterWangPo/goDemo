@@ -1,16 +1,16 @@
 package main
 
 import (
-	"io/ioutil"
-	"fmt"
-	"path/filepath"
 	"flag"
+	"fmt"
+	"io/ioutil"
+	"path/filepath"
 )
 
-func walk(dir string, size chan <-int64){
+func walk(dir string, size chan<- int64) {
 	dirFileInfo, err := ioutil.ReadDir(dir)
 	if err != nil {
-		fmt.Println("read dir err:",err)
+		fmt.Println("read dir err:", err)
 	}
 	for _, v := range dirFileInfo {
 		if v.IsDir() {
@@ -20,8 +20,8 @@ func walk(dir string, size chan <-int64){
 		}
 	}
 }
-func main()  {
-	dir := flag.String("dir",".","dirname")
+func main() {
+	dir := flag.String("dir", ".", "dirname")
 	flag.Parse()
 	fileSize := make(chan int64)
 	go func() {
@@ -30,7 +30,7 @@ func main()  {
 	}()
 	var size int64
 	for val := range fileSize {
-		size+= val
+		size += val
 	}
-	fmt.Println("dir size:",size/1000000)
+	fmt.Println("dir size:", size/1000000)
 }

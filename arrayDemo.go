@@ -10,7 +10,7 @@ func main() {
 	fmt.Println("in main after modify", arr)
 	modefyPoint(&arr)
 	fmt.Println("in main after point", arr)
-    modifySlice(arr[:])
+	modifySlice(arr[:])
 	fmt.Println("in main slice", arr)
 }
 func modify(arr [5]int) {
@@ -18,11 +18,11 @@ func modify(arr [5]int) {
 	fmt.Println("in modify", arr)
 }
 func modefyPoint(arr *[5]int) {
-    arr[0] = 13
+	arr[0] = 13
 	fmt.Println("in modify point", arr)
 }
 
 func modifySlice(arr []int) {
-    arr[0] = 100
+	arr[0] = 100
 	fmt.Println("in modify slice", arr)
 }

@@ -1,9 +1,11 @@
 package main
+
 import (
 	"fmt"
 	"math"
 )
-func main(){
+
+func main() {
 	fmt.Println("hello world")
 	fmt.Println(math.Sqrt(4))
 }

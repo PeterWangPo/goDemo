@@ -7,8 +7,8 @@ import (
 
 func main() {
 	//无缓冲channel
-    //两个任务异步执行，然后等待结果返回
-	ret1, ret2 := AsyncService(serviceTask),AsyncService(otherTask)
+	//两个任务异步执行，然后等待结果返回
+	ret1, ret2 := AsyncService(serviceTask), AsyncService(otherTask)
 	str1 := <-ret1
 	str2 := <-ret2
 	fmt.Println("str1 async return:", str1)
