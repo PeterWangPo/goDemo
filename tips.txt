@@ -1,3 +1,8 @@
+0. 网络环境导致无法下载google的包，可以设置代理
+   mac/linux:
+    go1.13之后的版本支持go mode
+    export GO111MODULE=on
+    export GOPROXY=https://goproxy.cn
 1. 类型转换
    int64转10进制字符串
     strconv.FormatInt(int64String, 10)
