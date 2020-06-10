@@ -1,0 +1,44 @@
+php + micro
+
+1.环境配置
+    1)protobuf 编译模块安装 protoc
+        git clone  https://github.com/google/protobuf.git
+        cd protobuf
+        ./configure
+        sudo make
+        sudo make install
+        #会生成 /usr/local/bin/protoc 可执行文件
+    2)grpc插件安装
+        git clone -b $(curl -L https://grpc.io/release) https://github.com/grpc/grpc
+        cd grpc
+        git pull --recurse-submodules && git submodule update --init --recursive
+        sudo make
+        sudo make install
+        # make install 会在 /usr/local/bin 目录下生成以下文件
+        #grpc_cpp_plugin  
+        #grpc_csharp_plugin  
+        #grpc_node_plugin  
+        #grpc_objective_c_plugin  
+        #grpc_php_plugin  
+        #grpc_python_plugin  
+        #grpc_ruby_plugin
+    3)安装gRPC PHP拓展
+        方法一：
+            cd grpc/src/php/ext/grpc
+            phpize
+            ./configure
+            sudo make
+            sudo make install
+            #在php.ini 文件中加入 extension_dir中加入 extension = grpc.so
+        方法二：
+            sudo pecl install grpc
+            #在php.ini 文件中加入 extension_dir中加入 extension = grpc.so
+    4)安装protobuf PHP扩展
+        pecl install protobuf
+        #在php.ini 文件中加入 extension_dir中加入 extension = protobuf.so
+    5)composer安装protobuf
+        composer require google/protobuf
+    6)composer安装grpc
+        composer require grpc/grpc
+
+
