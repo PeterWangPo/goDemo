@@ -1,5 +1,9 @@
 大概记录一下DNS相关知识
 
+物理层 - 链路层 - 网络层 - 传输层 - 应用层
+DNS属于应用层协议，默认端口53
+根域名服务器全球一共13台，内置在了本地DNS服务器中,从a.root-servers.net到m.root-servers.net
+
 1.DNS解析过程
     域名层级: 主机.次级域.顶级域.根域
         根域名   如 .root
@@ -19,3 +23,28 @@
             2.从"顶级域名服务器"查到"次级域名服务器"的NS记录和A记录（IP地址）
             3.从"次级域名服务器"查出"主机名"的IP地址
 
+2.DNS劫持和HTTP劫持
+    含义:
+        DNS劫持是你想去机场的时候，把你给丢到火车站。
+        HTTP劫持是你去机场途中，有人给你塞小广告。
+    DNS劫持如何产生的?
+        1.本机DNS劫持
+            攻击者通过木马或者某些软件修改本机hosts或者缓存
+        2.路由DNS劫持
+            攻击者修改路由的配置
+        3.DNS服务器攻击
+            直接攻击DNS服务器，使DNS服务器宕机或者修改DNS服务器的缓存
+3.DNS工具使用
+    dig +track www.163.com 查看DNS解析的详细过程
+    dig +short www.163.com 查询www.163.com对应哪几个ip
+    host www.163.com
+    nslookup www.163.com
+
+4.手动清除本地缓存
+    mac:
+        sudo dscacheutil -flushcache
+        sudo killall -HUP mDNSResponder
+    windows:
+        ipconfig /flushdns
+    linux:
+        sudo /etc/init.d/nscd restart
