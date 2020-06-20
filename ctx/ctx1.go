@@ -5,7 +5,7 @@ import (
     "sync"
 )
 
-//并发控制有两种经典的方式，一种是WaitGroup，另外一种是Context
+//并发控制有三种经典的方式，一种是WaitGroup，一种是channel, 另外一种是Context
 func main() {
     var wg sync.WaitGroup
     wg.Add(2)
