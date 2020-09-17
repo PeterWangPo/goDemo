@@ -5,6 +5,24 @@ import (
 )
 
 func main() {
+    t1 := []int{1,2,2}
+    all := make(map[int]struct{})
+    exists := make(map[int]struct{})
+    for _, v := range t1 {
+        if _, ok := all[v]; ok {
+            exists[v] = struct{}{} 
+        } else {
+            all[v] = struct{}{}
+        }
+    }
+    fmt.Println("all:",all)
+    fmt.Println("exists:",exists)
+    for k, _ := range all {
+        if _, ok := exists[k]; ok {
+            delete(all, k)
+        }
+    }
+    fmt.Println(all)
 	var a map[int]string //声明方式一，初始化
 	fmt.Println(a)
 	b := map[int]string{} //声明方式二，直接赋值
